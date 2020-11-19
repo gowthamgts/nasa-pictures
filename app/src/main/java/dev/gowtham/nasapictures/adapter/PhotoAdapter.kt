@@ -9,13 +9,13 @@ import dev.gowtham.nasapictures.databinding.PhotoItemBinding
 import dev.gowtham.nasapictures.model.PhotoModel
 import dev.gowtham.nasapictures.util.BindableAdapter
 
-class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>(),
-    BindableAdapter<List<PhotoModel>> {
+class PhotoAdapter(private val onItemClick: (Int) -> Unit) :
+    RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>(), BindableAdapter<List<PhotoModel>> {
 
     var photoList: MutableList<PhotoModel> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
-        return PhotoViewHolder.create(parent)
+        return PhotoViewHolder.create(parent, onItemClick)
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
@@ -32,8 +32,17 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>(),
         // TODO: have to do diff update. not applicable since data won't change
     }
 
-    class PhotoViewHolder(private val binding: PhotoItemBinding) :
+    class PhotoViewHolder(
+        private val binding: PhotoItemBinding,
+        private val onItemClick: (Int) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                onItemClick.invoke(layoutPosition)
+            }
+        }
 
         fun bind(photo: PhotoModel) {
             binding.photo = photo
@@ -41,11 +50,11 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>(),
         }
 
         companion object {
-            fun create(parent: ViewGroup): PhotoViewHolder {
+            fun create(parent: ViewGroup, onItemClick: (Int) -> Unit): PhotoViewHolder {
                 val binding: PhotoItemBinding = DataBindingUtil.inflate(
                     LayoutInflater.from(parent.context), R.layout.photo_item, parent, false
                 )
-                return PhotoViewHolder(binding)
+                return PhotoViewHolder(binding, onItemClick)
             }
         }
     }

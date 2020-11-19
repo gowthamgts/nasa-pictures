@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/root_graph"
-	app:startDestination="@id/photoListFragmentNav">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_graph"
+    app:startDestination="@id/photoListFragmentNav">
 
-	<fragment
-		android:id="@+id/photoListFragmentNav"
-		android:name="dev.gowtham.nasapictures.ui.fragments.PhotoListFragment"
-		android:label="NASA Photos"
-		tools:layout="@layout/photo_list_fragment" />
+    <fragment
+        android:id="@+id/photoListFragmentNav"
+        android:name="dev.gowtham.nasapictures.ui.fragments.PhotoListFragment"
+        android:label="NASA Photos"
+        tools:layout="@layout/photo_list_fragment">
+
+        <action
+            android:id="@+id/toSliderFromList"
+            app:destination="@id/photoSliderFragmentNav" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/photoSliderFragmentNav"
+        android:name="dev.gowtham.nasapictures.ui.fragments.PhotoSliderFragment"
+        android:label="Photo Slider"
+        tools:layout="@layout/photo_slider_fragment">
+        <argument
+            android:name="position"
+            app:argType="integer" />
+        <argument
+            android:name="totalItems"
+            app:argType="integer" />
+    </fragment>
+
 </navigation>

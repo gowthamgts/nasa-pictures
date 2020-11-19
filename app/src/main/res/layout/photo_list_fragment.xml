@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	tools:context=".ui.fragments.PhotoListFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.fragments.PhotoListFragment">
 
-	<data>
+    <data>
 
-		<variable
-			name="photoList"
-			type="java.util.List&lt;dev.gowtham.nasapictures.model.PhotoModel&gt;" />
-	</data>
+        <variable
+            name="photoList"
+            type="java.util.List&lt;dev.gowtham.nasapictures.model.PhotoModel&gt;" />
+    </data>
 
-	<FrameLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/photo_list_recycler"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			app:data="@{photoList}" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/photo_list_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:data="@{photoList}"
+            tools:itemCount="4"
+            tools:listitem="@layout/photo_item" />
 
-	</FrameLayout>
+    </FrameLayout>
 </layout>

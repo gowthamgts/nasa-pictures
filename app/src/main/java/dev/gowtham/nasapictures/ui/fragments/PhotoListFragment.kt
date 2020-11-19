@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.gowtham.nasapictures.NASAPicturesApp
@@ -36,12 +37,18 @@ class PhotoListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         val factory =
-            InjectorUtils.providePhotoViewModelFactory(requireActivity().application as NASAPicturesApp)
+            InjectorUtils.providePhotoListViewModelFactory(requireActivity().application as NASAPicturesApp)
         viewModel = ViewModelProvider(this, factory).get(PhotoListViewModel::class.java)
         viewModel.fetchPhotoList()
 
         photoListRecycler.layoutManager = LinearLayoutManager(requireContext())
-        photoListRecycler.adapter = PhotoAdapter()
+        photoListRecycler.adapter = PhotoAdapter { clickedPosition ->
+            // navigate to photo slider screen
+            val directions = PhotoListFragmentDirections.toSliderFromList(
+                clickedPosition, binding.photoList!!.size
+            )
+            findNavController().navigate(directions)
+        }
 
         viewModel.photoList.observe(viewLifecycleOwner) {
             binding.photoList = it

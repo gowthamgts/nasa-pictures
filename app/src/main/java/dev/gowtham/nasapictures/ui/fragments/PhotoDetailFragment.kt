@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +13,7 @@ import coil.imageLoader
 import coil.request.ImageRequest
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dev.gowtham.nasapictures.ARG_POSITION
 import dev.gowtham.nasapictures.NASAPicturesApp
 import dev.gowtham.nasapictures.databinding.PhotoDetailFragmentBinding
@@ -28,6 +30,8 @@ class PhotoDetailFragment : Fragment() {
     private lateinit var systemUiHelper: SystemUiHelper
     private lateinit var viewModel: PhotoDetailViewModel
     private lateinit var binding: PhotoDetailFragmentBinding
+    private val bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
+        get() = BottomSheetBehavior.from(binding.bottomSheet)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +74,14 @@ class PhotoDetailFragment : Fragment() {
             orientation = SubsamplingScaleImageView.ORIENTATION_USE_EXIF
             setOnClickListener {
                 systemUiHelper.toggle()
+            }
+        }
+
+        binding.bottomSheet.setOnClickListener {
+            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            } else {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             }
         }
 

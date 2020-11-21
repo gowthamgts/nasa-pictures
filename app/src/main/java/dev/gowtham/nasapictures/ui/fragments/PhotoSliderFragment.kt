@@ -11,10 +11,14 @@ import dev.gowtham.nasapictures.databinding.PhotoSliderFragmentBinding
 
 class PhotoSliderFragment : Fragment() {
 
-    private var currentPosition = 0
+    private var currentPosition = -1
 
     private lateinit var binding: PhotoSliderFragmentBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        currentPosition = PhotoSliderFragmentArgs.fromBundle(requireArguments()).position
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +33,7 @@ class PhotoSliderFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         binding.photoViewPager.adapter = PhotoPagerAdapter(this)
-        binding.photoViewPager.currentItem = currentPosition
+        binding.photoViewPager.setCurrentItem(currentPosition, false)
     }
 
     class PhotoPagerAdapter(

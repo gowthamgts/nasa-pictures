@@ -49,8 +49,11 @@ class PhotoDetailFragment : Fragment() {
             .also { binding = it }
             .root
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onResume() {
+        super.onResume()
+        binding.photoModel?.let {
+            requireActivity().title = it.title
+        }
 
         // setup window flags
         systemUiHelper = SystemUiHelper(
@@ -64,10 +67,19 @@ class PhotoDetailFragment : Fragment() {
             } else {
                 // show elements
                 (requireActivity() as AppCompatActivity).supportActionBar?.hide()
-                binding.bottomSheet.visibility = View.GONE
+                binding.bottomSheet.visibility = View.INVISIBLE
             }
         }
         systemUiHelper.show()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.bottomSheet.visibility = View.VISIBLE
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         binding.imageView.apply {
             setDoubleTapZoomDuration(300)

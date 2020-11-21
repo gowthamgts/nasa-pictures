@@ -11,17 +11,44 @@
             type="java.util.List&lt;dev.gowtham.nasapictures.model.PhotoModel&gt;" />
     </data>
 
-    <FrameLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/photo_list_recycler"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            style="@style/Theme.NASAPictures.AppBarOverlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:data="@{photoList}"
-            tools:itemCount="4"
-            tools:listitem="@layout/photo_item" />
+            android:background="?attr/colorSurface">
 
-    </FrameLayout>
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorSurface"
+                android:elevation="0dp"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:marginTopSystemWindowInsets="@{true}"
+                app:popupTheme="@style/Theme.NASAPictures.PopupOverlay"
+                app:titleTextColor="?android:attr/textColorPrimary"
+                tools:title="@string/app_name" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/photo_list_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:data="@{photoList}"
+                tools:itemCount="4"
+                tools:listitem="@layout/photo_item" />
+        </FrameLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

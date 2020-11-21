@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import dev.gowtham.nasapictures.ARG_POSITION
 import dev.gowtham.nasapictures.databinding.PhotoSliderFragmentBinding
+import dev.gowtham.nasapictures.ui.activities.MainActivity
 
 class PhotoSliderFragment : Fragment() {
 
@@ -31,6 +32,11 @@ class PhotoSliderFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        // setup toolbar
+        (requireActivity() as MainActivity).apply {
+            setSupportActionBar(binding.toolbar)
+        }
 
         binding.photoViewPager.adapter = PhotoPagerAdapter(this)
         binding.photoViewPager.setCurrentItem(currentPosition, false)

@@ -14,6 +14,7 @@ import dev.gowtham.nasapictures.NASAPicturesApp
 import dev.gowtham.nasapictures.R
 import dev.gowtham.nasapictures.adapter.PhotoAdapter
 import dev.gowtham.nasapictures.databinding.PhotoListFragmentBinding
+import dev.gowtham.nasapictures.ui.activities.MainActivity
 import dev.gowtham.nasapictures.util.InjectorUtils
 import dev.gowtham.nasapictures.viewmodel.PhotoListViewModel
 
@@ -35,6 +36,12 @@ class PhotoListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        // setup toolbar
+        (requireActivity() as MainActivity).apply {
+            setSupportActionBar(binding.toolbar)
+            setTitle(R.string.app_name)
+        }
 
         val factory =
             InjectorUtils.providePhotoListViewModelFactory(requireActivity().application as NASAPicturesApp)

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.NASAPictures.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="windowActionBarOverlay">true</item>
+        <item name="background">@color/transparent</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:backgroundStacked">@color/transparent</item>
+        <item name="android:elevation">8dp</item>
+        <item name="elevation">8dp</item>
+    </style>
+
+    <style name="Theme.NASAPictures.ActionBar" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="windowActionBarOverlay">true</item>
+        <item name="background">@color/transparent</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:backgroundStacked">@color/transparent</item>
+    </style>
+
+    <style name="Theme.NASAPictures.PopupOverlay" parent="ThemeOverlay.MaterialComponents" />
+</resources>

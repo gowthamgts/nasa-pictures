@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.imageLoader
 import coil.request.ImageRequest
 import coil.request.ImageResult
-import coil.transform.RoundedCornersTransformation
 import dev.gowtham.nasapictures.R
 import dev.gowtham.nasapictures.util.BindableAdapter
 import timber.log.Timber
@@ -22,14 +21,12 @@ fun <T> bindDataToRecyclerView(recyclerView: RecyclerView, data: T) {
 
 @BindingAdapter("imageUrl")
 fun bindImageToImageView(imageView: AppCompatImageView, imageUrl: String?) {
-    val transformations = listOf(RoundedCornersTransformation(15F))
     imageUrl?.let {
         val request = ImageRequest.Builder(imageView.context)
             .data(imageUrl)
             .crossfade(true)
             .error(R.drawable.ic_launcher_background) // TODO: replace with proper placeholder
             .fallback(R.drawable.ic_launcher_background)
-            .transformations(transformations)
             .target(imageView)
             .listener(object : ImageRequest.Listener {
                 override fun onSuccess(request: ImageRequest, metadata: ImageResult.Metadata) {

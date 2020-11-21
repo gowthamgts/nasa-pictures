@@ -101,7 +101,7 @@ class PhotoDetailFragment : Fragment() {
                     val imageResult = imageRequest.await()
                     imageResult.drawable?.let { drawable ->
                         withContext(Dispatchers.Main) {
-                            binding.imageView.setImage(ImageSource.bitmap(drawable.bitmap()))
+                            binding.imageView.setImage(ImageSource.cachedBitmap(drawable.bitmap()))
                         }
                     }
                 } catch (e: CancellationException) {
@@ -111,7 +111,6 @@ class PhotoDetailFragment : Fragment() {
                 val hdImageResult = hdImageRequest.await()
                 hdImageResult.drawable?.let { drawable ->
                     withContext(Dispatchers.Main) {
-                        binding.imageView.recycle()
                         binding.imageView.setImage(ImageSource.bitmap(drawable.bitmap()))
                     }
                 }

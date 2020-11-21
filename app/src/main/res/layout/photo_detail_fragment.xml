@@ -34,8 +34,9 @@
             style="?attr/bottomSheetStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/colorBackground"
+            android:background="?attr/colorSurface"
             android:clickable="true"
+            android:clipToPadding="true"
             android:focusable="true"
             android:padding="16dp"
             app:behavior_hideable="false"
@@ -46,18 +47,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <View
+                    android:id="@+id/grapple"
+                    android:layout_width="48dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/rounded_shape"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/photo_copyright"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:textAppearance="@style/TextAppearance.NASAPictures.Body1"
                     android:textColor="?android:attr/textColorSecondary"
                     app:copyright="@{photoModel.copyright ?? @string/none}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/grapple"
                     tools:text="\u00A9 Steve Mazlin" />
 
                 <TextView

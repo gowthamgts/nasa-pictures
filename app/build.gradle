@@ -28,7 +28,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$versions.navigation"
     implementation "com.appmattus:layercache:$versions.layercache"
     implementation "com.appmattus:layercache-android:$versions.layercache"
-    implementation "com.github.chrisbanes:PhotoView:$versions.photoview"
+    implementation "com.davemorrissey.labs:subsampling-scale-image-view-androidx:$versions.subsampling"
     implementation "me.zhanghai.android.systemuihelper:library:$versions.systemuihelper"
 
     // testing dependencies

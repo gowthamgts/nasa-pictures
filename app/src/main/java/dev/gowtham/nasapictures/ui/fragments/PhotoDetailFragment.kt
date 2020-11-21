@@ -7,16 +7,18 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import coil.clear
-import coil.loadAny
+import androidx.lifecycle.lifecycleScope
+import coil.imageLoader
 import coil.request.ImageRequest
-import coil.request.ImageResult
-import coil.size.OriginalSize
+import com.davemorrissey.labs.subscaleview.ImageSource
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import dev.gowtham.nasapictures.ARG_POSITION
 import dev.gowtham.nasapictures.NASAPicturesApp
 import dev.gowtham.nasapictures.databinding.PhotoDetailFragmentBinding
+import dev.gowtham.nasapictures.extensions.bitmap
 import dev.gowtham.nasapictures.util.InjectorUtils
 import dev.gowtham.nasapictures.viewmodel.PhotoDetailViewModel
+import kotlinx.coroutines.*
 import me.zhanghai.android.systemuihelper.SystemUiHelper
 import timber.log.Timber
 
@@ -63,8 +65,12 @@ class PhotoDetailFragment : Fragment() {
         }
         systemUiHelper.show()
 
-        binding.photoImageView.setOnClickListener {
-            systemUiHelper.toggle()
+        binding.imageView.apply {
+            setDoubleTapZoomDuration(300)
+            orientation = SubsamplingScaleImageView.ORIENTATION_USE_EXIF
+            setOnClickListener {
+                systemUiHelper.toggle()
+            }
         }
 
         val factory =
@@ -75,25 +81,41 @@ class PhotoDetailFragment : Fragment() {
         viewModel.currentPhotoModel.observe(viewLifecycleOwner) {
             requireActivity().title = it.title
             binding.photoModel = it
-            binding.photoImageView.apply {
-                loadAny(it.url) {
-                    size(OriginalSize)
-                    placeholder(android.R.color.transparent)
-//                    TODO: error handling
-                    listener(
-                        onSuccess = { request: ImageRequest, metadata: ImageResult.Metadata ->
-                            Timber.d("image loaded via url - ${metadata.dataSource.name} - ${request.data}")
-                        },
-                        onError = { _, _ -> }
-                    )
+            lifecycleScope.launch(Dispatchers.IO) {
+                val imageRequest = async {
+                    val request = ImageRequest.Builder(binding.imageView.context)
+                        .data(it.url)
+                        .build()
+                    binding.imageView.context.imageLoader.execute(request)
+                }
+
+                val hdImageRequest = async {
+                    val request = ImageRequest.Builder(binding.imageView.context)
+                        .data(it.hdUrl)
+                        .build()
+                    binding.imageView.context.imageLoader.execute(request)
+                }
+                hdImageRequest.invokeOnCompletion { imageRequest.cancel() }
+
+                try {
+                    val imageResult = imageRequest.await()
+                    imageResult.drawable?.let { drawable ->
+                        withContext(Dispatchers.Main) {
+                            binding.imageView.setImage(ImageSource.bitmap(drawable.bitmap()))
+                        }
+                    }
+                } catch (e: CancellationException) {
+                    Timber.v("cancelled because high quality image is available")
+                }
+
+                val hdImageResult = hdImageRequest.await()
+                hdImageResult.drawable?.let { drawable ->
+                    withContext(Dispatchers.Main) {
+                        binding.imageView.recycle()
+                        binding.imageView.setImage(ImageSource.bitmap(drawable.bitmap()))
+                    }
                 }
             }
-        }
-
-        viewModel.largePhotoModel.observe(viewLifecycleOwner) {
-            // TODO: animate and fade out old photoImageView
-            binding.photoImageView.clear()
-            binding.photoImageView.setImageBitmap(it)
         }
     }
 }

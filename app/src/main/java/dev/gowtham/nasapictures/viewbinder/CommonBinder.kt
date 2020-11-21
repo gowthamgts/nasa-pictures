@@ -4,7 +4,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.loadAny
+import coil.imageLoader
 import coil.request.ImageRequest
 import coil.request.ImageResult
 import coil.transform.RoundedCornersTransformation
@@ -24,18 +24,21 @@ fun <T> bindDataToRecyclerView(recyclerView: RecyclerView, data: T) {
 fun bindImageToImageView(imageView: AppCompatImageView, imageUrl: String?) {
     val transformations = listOf(RoundedCornersTransformation(15F))
     imageUrl?.let {
-        imageView.loadAny(imageUrl) {
-            crossfade(true)
-            error(R.drawable.ic_launcher_background) // TODO: replace with proper placeholder
-            fallback(R.drawable.ic_launcher_background)
-            transformations(transformations)
-            listener(object : ImageRequest.Listener {
+        val request = ImageRequest.Builder(imageView.context)
+            .data(imageUrl)
+            .crossfade(true)
+            .error(R.drawable.ic_launcher_background) // TODO: replace with proper placeholder
+            .fallback(R.drawable.ic_launcher_background)
+            .transformations(transformations)
+            .target(imageView)
+            .listener(object : ImageRequest.Listener {
                 override fun onSuccess(request: ImageRequest, metadata: ImageResult.Metadata) {
                     super.onSuccess(request, metadata)
                     Timber.d("image loaded via ${metadata.dataSource.name} - ${request.data}")
                 }
             })
-        }
+            .build()
+        imageView.context.imageLoader.enqueue(request)
     }
 }
 

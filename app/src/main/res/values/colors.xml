@@ -30,4 +30,9 @@
     <color name="red">#F44336</color>
     <color name="transparent">#00000000</color>
     <color name="blackSwatch">#24666666</color>
+
+    <!--background protection for nav-bar, varied on Q+-->
+    <color name="immersive_sys_ui">#33000000</color>
+    <color name="nav_bar">@color/immersive_sys_ui</color>
+    <color name="dark_semi_transparent">#80232323</color>
 </resources>

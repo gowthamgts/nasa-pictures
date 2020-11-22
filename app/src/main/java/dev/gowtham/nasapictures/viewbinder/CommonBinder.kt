@@ -30,8 +30,6 @@ fun bindImageToImageView(imageView: AppCompatImageView, imageUrl: String?) {
         val request = ImageRequest.Builder(imageView.context)
             .data(imageUrl)
             .crossfade(true)
-            .error(R.drawable.ic_launcher_background) // TODO: replace with proper placeholder
-            .fallback(R.drawable.ic_launcher_background)
             .target(imageView)
             .listener(object : ImageRequest.Listener {
                 override fun onSuccess(request: ImageRequest, metadata: ImageResult.Metadata) {

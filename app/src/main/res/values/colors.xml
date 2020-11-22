@@ -35,4 +35,7 @@
     <color name="immersive_sys_ui">#33000000</color>
     <color name="nav_bar">@color/immersive_sys_ui</color>
     <color name="dark_semi_transparent">#80232323</color>
+
+    <!-- logo color-->
+    <color name="ic_launcher_background">#3A4046</color>
 </resources>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NASA Pictures</string>
+    <string name="app_name">NASA Pics</string>
     <string name="not_available">Not Available</string>
     <string name="none">None</string>
     <string name="not_enough_info">Not enough information available</string>

@@ -1,6 +1,7 @@
 <p align="center">
   <a href="https://github.com/gowthamgts/nasa-pictures">
-    <img src="https://github.com/gowthamgts/nasa-pictures/blob/master/app/src/main/ic_launcher-playstore.png?raw=true" alt="NASA Pics" width="80" height="80">
+    <img src="https://github.com/gowthamgts/nasa-pictures/blob/master/app/src/main/ic_launcher-playstore.png?raw=true"
+    alt="NASA Pics" width="150" height="150" style="border-radius:15%">
   </a>
 
   <h3 align="center">NASA Pics</h3>

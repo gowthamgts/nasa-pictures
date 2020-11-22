@@ -45,7 +45,7 @@ fun bindImageToImageView(imageView: AppCompatImageView, imageUrl: String?) {
 @BindingAdapter("copyright")
 fun bindCopyright(textView: TextView, copyright: String?) {
     if (copyright == null) {
-        textView.text = textView.context.getString(R.string.not_available)
+        textView.visibility = View.GONE
     } else {
         textView.text = textView.context.getString(R.string.copyright_text, copyright)
     }

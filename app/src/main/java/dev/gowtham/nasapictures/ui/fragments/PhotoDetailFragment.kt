@@ -135,7 +135,7 @@ class PhotoDetailFragment : Fragment() {
                 val hdImageResult = hdImageRequest.await()
                 hdImageResult.drawable?.let { drawable ->
                     withContext(Dispatchers.Main) {
-                        binding.imageView.setImage(ImageSource.bitmap(drawable.bitmap()))
+                        binding.imageView.setImage(ImageSource.cachedBitmap(drawable.bitmap()))
                     }
                 }
             }

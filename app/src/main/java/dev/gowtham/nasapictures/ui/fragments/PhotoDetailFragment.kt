@@ -19,6 +19,8 @@ import dev.gowtham.nasapictures.ARG_POSITION
 import dev.gowtham.nasapictures.NASAPicturesApp
 import dev.gowtham.nasapictures.databinding.PhotoDetailFragmentBinding
 import dev.gowtham.nasapictures.extensions.bitmap
+import dev.gowtham.nasapictures.extensions.slideIn
+import dev.gowtham.nasapictures.extensions.slideOut
 import dev.gowtham.nasapictures.util.InjectorUtils
 import dev.gowtham.nasapictures.viewmodel.PhotoDetailViewModel
 import kotlinx.coroutines.*
@@ -64,11 +66,11 @@ class PhotoDetailFragment : Fragment() {
             if (visible) {
                 // hide elements
                 (requireActivity() as AppCompatActivity).supportActionBar?.show()
-                binding.bottomSheet.visibility = View.VISIBLE
+                binding.bottomSheet.slideIn(fromTop = false)
             } else {
                 // show elements
                 (requireActivity() as AppCompatActivity).supportActionBar?.hide()
-                binding.bottomSheet.visibility = View.INVISIBLE
+                binding.bottomSheet.slideOut(fromTop = true)
             }
         }
         systemUiHelper.show()

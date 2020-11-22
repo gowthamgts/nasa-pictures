@@ -9,6 +9,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import dev.gowtham.nasapictures.ARG_POSITION
 import dev.gowtham.nasapictures.databinding.PhotoSliderFragmentBinding
 import dev.gowtham.nasapictures.ui.activities.MainActivity
+import dev.gowtham.nasapictures.util.DepthPageTransformer
 
 class PhotoSliderFragment : Fragment() {
 
@@ -40,6 +41,7 @@ class PhotoSliderFragment : Fragment() {
 
         binding.photoViewPager.adapter = PhotoPagerAdapter(this)
         binding.photoViewPager.setCurrentItem(currentPosition, false)
+        binding.photoViewPager.setPageTransformer(DepthPageTransformer())
     }
 
     class PhotoPagerAdapter(

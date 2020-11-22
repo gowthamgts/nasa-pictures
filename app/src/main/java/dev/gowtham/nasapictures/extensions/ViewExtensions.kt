@@ -19,7 +19,7 @@ fun View.slideIn(fromTop: Boolean) {
     }
 }
 
-fun View.slideOut(fromTop: Boolean) {
+fun View.slideOut(fromTop: Boolean, gone: Boolean = false) {
     this.apply {
         animate()
             .alpha(0f)
@@ -27,7 +27,11 @@ fun View.slideOut(fromTop: Boolean) {
             .setDuration(resources.getInteger(android.R.integer.config_mediumAnimTime).toLong())
             .setListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
-                    this@slideOut.visibility = View.INVISIBLE
+                    this@slideOut.visibility = if (gone) {
+                        View.GONE
+                    } else {
+                        View.INVISIBLE
+                    }
                 }
             })
     }

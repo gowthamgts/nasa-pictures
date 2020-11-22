@@ -62,7 +62,6 @@ class PhotoDetailFragment : Fragment() {
         systemUiHelper = SystemUiHelper(
             activity, SystemUiHelper.LEVEL_IMMERSIVE, SystemUiHelper.FLAG_IMMERSIVE_STICKY
         ) { visible: Boolean ->
-            // TODO: animate toolbars
             if (visible) {
                 // hide elements
                 (requireActivity() as AppCompatActivity).supportActionBar?.show()

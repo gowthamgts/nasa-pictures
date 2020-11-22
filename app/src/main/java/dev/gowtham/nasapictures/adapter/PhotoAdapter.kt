@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.gowtham.nasapictures.R
 import dev.gowtham.nasapictures.databinding.PhotoItemBinding
 import dev.gowtham.nasapictures.model.PhotoModel
-import dev.gowtham.nasapictures.util.BindableAdapter
 
 class PhotoAdapter(private val onItemClick: (Int) -> Unit) :
     RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>(), BindableAdapter<List<PhotoModel>> {

@@ -13,7 +13,7 @@ import coil.imageLoader
 import coil.request.ImageRequest
 import coil.request.ImageResult
 import dev.gowtham.nasapictures.R
-import dev.gowtham.nasapictures.util.BindableAdapter
+import dev.gowtham.nasapictures.adapter.BindableAdapter
 import timber.log.Timber
 
 @Suppress("UNCHECKED_CAST")

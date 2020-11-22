@@ -1,5 +1,6 @@
 package dev.gowtham.nasapictures.ui.fragments
 
+import android.graphics.PointF
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -87,6 +88,17 @@ class PhotoDetailFragment : Fragment() {
             setOnClickListener {
                 systemUiHelper.toggle()
             }
+            setOnStateChangedListener(object : SubsamplingScaleImageView.OnStateChangedListener {
+                override fun onScaleChanged(newScale: Float, origin: Int) {
+                    // collapse if bottom sheet is expanded when scaling
+                    if (newScale > 1 && bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                    }
+                }
+
+                override fun onCenterChanged(newCenter: PointF?, origin: Int) {
+                }
+            })
         }
 
         binding.bottomSheet.setOnClickListener {

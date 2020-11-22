@@ -8,8 +8,6 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import dev.gowtham.nasapictures.R
 import dev.gowtham.nasapictures.databinding.ActivityMainBinding
-import timber.log.Timber
-import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,13 +16,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // TODO: for debugging. remove on release
-        Thread.setDefaultUncaughtExceptionHandler { paramThread, exception -> //Catch your exception
-            // Without System.exit() this will not work.
-            Timber.e(exception, "caught uncaught exception on thread - $paramThread.")
-            exitProcess(2)
-        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.attributes.layoutInDisplayCutoutMode = LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS

@@ -29,7 +29,6 @@ class PhotoAdapter(private val onItemClick: (Int) -> Unit) :
             photoList = data.toMutableList()
             notifyItemRangeInserted(0, data.size)
         }
-        // TODO: have to do diff update. not applicable since data won't change
     }
 
     class PhotoViewHolder(

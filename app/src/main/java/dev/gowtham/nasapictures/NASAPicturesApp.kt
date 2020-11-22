@@ -27,7 +27,6 @@ class NASAPicturesApp : Application(), ImageLoaderFactory {
     override fun newImageLoader(): ImageLoader {
         return ImageLoader.Builder(applicationContext)
             .crossfade(true)
-            .logger(DebugLogger()) // TODO: for debugging. remove on release
             .okHttpClient {
                 OkHttpClient.Builder()
                     .cache(CoilUtils.createDefaultCache(applicationContext))
